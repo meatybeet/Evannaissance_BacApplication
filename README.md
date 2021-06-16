@@ -1,4 +1,4 @@
-# e_bac++
+# E_bac++
 
 A new Flutter project.
 
