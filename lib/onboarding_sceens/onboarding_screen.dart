@@ -13,7 +13,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  final int _numPages = 4;
+  final int _numPages = 6;
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
 
@@ -86,7 +86,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   child: FlatButton(
                     onPressed: () => goToNextPage() ,
                     child: Text(
-                      'Skip',
+                      'Passer',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
@@ -105,23 +105,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       });
                     },
                     children: <Widget>[
+
                       Padding(
-                        padding: EdgeInsets.all(40.0),
+                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child: Image(
-                                image: AssetImage(
-                                  'assets/onboarding0.png',
+                              child:   Card(
+                                clipBehavior: Clip.antiAlias,
+                                color: Colors.green,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                height: 300.0,
-                                width: 300.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children:<Widget>[
+                                        Ink.image(image:
+                                        AssetImage("assets/StudentsImages/etudiants11.jpg"),
+                                          fit: BoxFit.cover,
+                                          height: 250,
+                                          child: InkWell(
+                                            onTap: () {},
+                                            splashColor: Colors.blue.withAlpha(30),
+                                          ),),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            SizedBox(height: 30.0),
+                            SizedBox(height: 20.0),
                             Text(
-                              'Connect people\naround the world',
+                              'Bienvenue à vous\nfuture diplômés...',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Montserrat',
@@ -130,7 +150,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             SizedBox(height: 15.0),
                             Text(
-                              'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+                              "Aviez-vous déjà eu le besoin de consulter des anciennes épreuves "
+                                  "d'un examen afin de vous exercer ??? Si oui vous êtes au bon endroit",
                               style: TextStyle(
                                 color: Colors.white54,
                                 fontFamily: 'Montserrat',
@@ -142,22 +163,41 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       ),
 
                       Padding(
-                        padding: EdgeInsets.all(40.0),
+                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child: Image(
-                                image: AssetImage(
-                                  'assets/onboarding1.png',
+                              child:   Card(
+                                clipBehavior: Clip.antiAlias,
+                                color: Colors.green,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                height: 300.0,
-                                width: 300.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children:<Widget>[
+                                        Ink.image(image:
+                                        AssetImage("assets/StudentsImages/etudiants4.jpg"),
+                                          fit: BoxFit.cover,
+                                          height: 250,
+                                          child: InkWell(
+                                            onTap: () {},
+                                            splashColor: Colors.blue.withAlpha(30),
+                                          ),),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            SizedBox(height: 30.0),
+                            SizedBox(height: 20.0),
                             Text(
-                              'Live your life smarter\nwith us!',
+                              'BAC++..',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Montserrat',
@@ -166,7 +206,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             SizedBox(height: 15.0),
                             Text(
-                              'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+                              "Vous permet de preparer votre Baccalauréat dans de bonne conditions... ",
                               style: TextStyle(
                                 color: Colors.white54,
                                 fontFamily: 'Montserrat',
@@ -176,23 +216,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
+
                       Padding(
-                        padding: EdgeInsets.all(40.0),
+                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child: Image(
-                                image: AssetImage(
-                                  'assets/onboarding2.png',
+                              child:   Card(
+                                clipBehavior: Clip.antiAlias,
+                                color: Colors.green,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                height: 300.0,
-                                width: 300.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children:<Widget>[
+                                        Ink.image(image:
+                                        AssetImage("assets/StudentsImages/etudiants3.jpg"),
+                                          fit: BoxFit.cover,
+                                          height: 250,
+                                          child: InkWell(
+                                            onTap: () {},
+                                            splashColor: Colors.blue.withAlpha(30),
+                                          ),),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            SizedBox(height: 30.0),
+                            SizedBox(height: 20.0),
                             Text(
-                              'Live your life smarter\nwith us!',
+                              'Regroupant...',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Montserrat',
@@ -201,7 +261,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             ),
                             SizedBox(height: 15.0),
                             Text(
-                              'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+                              "Une énorme bilbiothèque numérique, portable et structuré d'épreuves mis à votre disposition... ",
                               style: TextStyle(
                                 color: Colors.white54,
                                 fontFamily: 'Montserrat',
@@ -211,32 +271,163 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
+
                       Padding(
-                        padding: EdgeInsets.all(40.0),
+                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child: Image(
-                                image: AssetImage(
-                                  'assets/onboarding3.png',
+                              child:   Card(
+                                clipBehavior: Clip.antiAlias,
+                                color: Colors.green,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
                                 ),
-                                height: 300.0,
-                                width: 300.0,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children:<Widget>[
+                                        Ink.image(image:
+                                        AssetImage("assets/StudentsImages/etudiants12.jpg"),
+                                          fit: BoxFit.cover,
+                                          height: 250,
+                                          child: InkWell(
+                                            onTap: () {},
+                                            splashColor: Colors.blue.withAlpha(30),
+                                          ),),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            SizedBox(height: 30.0),
+                            SizedBox(height: 20.0),
                             Text(
-                              'Get a new experience\nof imagination',
+                              'Vous permettant...',
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Montserrat',
-                                  fontSize: 30,
+                                color: Colors.white,
+                                fontFamily: 'Montserrat',
+                                fontSize: 30,
                               ),
                             ),
                             SizedBox(height: 15.0),
                             Text(
-                              'Lorem ipsum dolor sit amet, consect adipiscing elit, sed do eiusmod tempor incididunt ut labore et.',
+                              "D'avoir accès à ces données plus rapidement, mais qui propose aussi la possibilité"
+                                  " à un élève dans le besoin de... ",
+                              style: TextStyle(
+                                color: Colors.white54,
+                                fontFamily: 'Montserrat',
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Center(
+                              child:   Card(
+                                clipBehavior: Clip.antiAlias,
+                                color: Colors.green,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children:<Widget>[
+                                        Ink.image(image:
+                                        AssetImage("assets/StudentsImages/etudiants13.jpg"),
+                                          fit: BoxFit.cover,
+                                          height: 250,
+                                          child: InkWell(
+                                            onTap: () {},
+                                            splashColor: Colors.blue.withAlpha(30),
+                                          ),),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 20.0),
+                            Text(
+                              'Contacter...',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Montserrat',
+                                fontSize: 30,
+                              ),
+                            ),
+                            SizedBox(height: 15.0),
+                            Text(
+                              "Des tuteurs qualifiers et certifiers afin de mettre toutes les chances de votre pour devenir des... ",
+                              style: TextStyle(
+                                color: Colors.white54,
+                                fontFamily: 'Montserrat',
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Center(
+                              child:   Card(
+                                clipBehavior: Clip.antiAlias,
+                                color: Colors.green,
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Stack(
+                                      alignment: Alignment.center,
+                                      children:<Widget>[
+                                        Ink.image(image:
+                                        AssetImage("assets/StudentsImages/etudiants1.jpg"),
+                                          fit: BoxFit.cover,
+                                          height: 250,
+                                          child: InkWell(
+                                            onTap: () {},
+                                            splashColor: Colors.blue.withAlpha(30),
+                                          ),),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 20.0),
+                            Text(
+                              'Etudiants accomplis...',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Montserrat',
+                                fontSize: 30,
+                              ),
+                            ),
+                            SizedBox(height: 15.0),
+                            Text(
+                              "L'équipe Evannaissance vous souhaite \"BONNE CHANCE!!!\" ",
                               style: TextStyle(
                                 color: Colors.white54,
                                 fontFamily: 'Montserrat',

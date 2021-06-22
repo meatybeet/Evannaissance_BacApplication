@@ -1,4 +1,5 @@
 import 'package:e_bac/AuthScreens/login_screen.dart';
+import 'package:e_bac/StudentsPageSection/BottomNaBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -50,7 +51,7 @@ class _ChoiceUserTypeState extends State<ChoiceUserType> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Who are you ?',
+                        'Qui êtes-vous ?',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Montserrat',
@@ -85,10 +86,10 @@ class WhichUser extends StatefulWidget {
 
 class _WhichUserState extends State<WhichUser> {
 
-  void goToNextPage() {
+  void goToLoginScreen() {
     //permet de naviguer d'une page à une autre avec une animation
     Navigator.push(context, PageRouteBuilder(
-        transitionDuration: Duration(seconds: 1),
+        transitionDuration: Duration(milliseconds: 500),
         transitionsBuilder: (context, animation, animationTime, child) {
           animation= CurvedAnimation(parent: animation,
               curve: Curves.elasticOut);
@@ -104,6 +105,25 @@ class _WhichUserState extends State<WhichUser> {
     ));
   }
 
+  void goToEleveAccueil() {
+    //permet de naviguer d'une page à une autre avec une animation
+    Navigator.push(context, PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 500),
+        transitionsBuilder: (context, animation, animationTime, child) {
+          animation= CurvedAnimation(parent: animation,
+              curve: Curves.elasticOut);
+          return ScaleTransition(scale: animation,
+            alignment: Alignment.center,
+            child: child,
+          );
+        },
+        pageBuilder:
+            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+          return BottomNavBar();
+        }
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -115,7 +135,7 @@ class _WhichUserState extends State<WhichUser> {
           fontFamily: 'Montserrat'),
           ),
          SizedBox(height: 30,),
-         RaisedButton(onPressed: () => print('eleve'),
+         RaisedButton(onPressed: () => goToEleveAccueil(),
            padding: EdgeInsets.only(left: 80,right: 80,top: 30,bottom: 30),
            shape: RoundedRectangleBorder(
              borderRadius: BorderRadius.circular(30),
@@ -128,7 +148,7 @@ class _WhichUserState extends State<WhichUser> {
            ),
          ),
           SizedBox(height: 20,),
-          RaisedButton(onPressed: () => goToNextPage(),
+          RaisedButton(onPressed: () => goToLoginScreen(),
 
             padding: EdgeInsets.only(left: 75,right: 75,top: 30,bottom: 30),
             shape: RoundedRectangleBorder(

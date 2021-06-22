@@ -109,12 +109,15 @@ class _LoadingState extends State<Loading> with TickerProviderStateMixin {
     super.initState();
   }
 
-
   @override
   void dispose() {
     controller.dispose();
     super.dispose();
   }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,6 +133,7 @@ class _LoadingState extends State<Loading> with TickerProviderStateMixin {
                 children: <Widget>[
 
                   CircularProgressIndicator(
+                    strokeWidth: 10,
                     color: Colors.white,
                     backgroundColor: Colors.indigoAccent,
                     value: controller.value,

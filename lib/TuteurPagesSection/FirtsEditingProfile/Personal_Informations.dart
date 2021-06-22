@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:e_bac/AuthScreens/login_screen.dart';
 import 'package:e_bac/Loading/Loading.dart';
 import 'package:e_bac/utilities/constants.dart';
@@ -55,11 +57,11 @@ class _PersonalInformationsState extends State<PersonalInformations> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Enter your Personal\n       Informations',
+                        'Entrer vos informations\n          perspnnelles',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Montserrat',
-                          fontSize: 30.0,
+                          fontSize: 25.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -94,23 +96,123 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
 
   String email='';
   String fname= '';
-  String name='';
   String age= '';
   String number = '';
   final RegExp emailValidator = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
 
   //Controller pour le formulaire
-  TextEditingController username = new TextEditingController();
   TextEditingController userFullName = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController ageController = new TextEditingController();
   TextEditingController numberController = new TextEditingController();
 
+
+
+  Future<void> personnalinfos()async {
+    var url = Uri.parse("http://192.168.1.16/workstation/flutter%20app%20auth/personnalinfos.php");
+    var response = await http.post(url,
+        body: {
+          "fullname" : userFullName.text,
+          "age" : ageController.text,
+          "phone" : numberController.text,
+          "email" : emailController.text,
+
+        }
+    );
+    var data = jsonDecode(response.body);
+    if(data == "Error"){
+
+      //permet d'afficher une pop up
+      showDialog(context: context,
+        builder: (_) => ShowErrorDialog(),
+        barrierDismissible: false,);
+    }else{
+
+      //permet d'afficher une pop up
+      showDialog(context: context,
+        builder: (_) => ShowSuccesDialog(),
+        barrierDismissible: false,);
+
+
+    }
+  }
+
+  Widget ShowSuccesDialog(){
+    return  AlertDialog(
+      title: Text('Réussi',
+        style: TextStyle(
+            color: Colors.green),),
+      content: Image.asset("assets/success.png"),
+      actions: [
+        FlatButton(onPressed: () => showDialog(context: context,
+          builder :(_) => confirmPersonnalInformations(),
+        ),
+            child: Text("Continuer",
+              style: TextStyle(
+                  fontSize: 20),))
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30)
+      ),
+    );
+  }
+
+  Widget ShowErrorDialog(){
+    return  AlertDialog(
+      title: Text('Erreur',
+        style: TextStyle(
+            color: Colors.red),),
+      content: Text("L'email ne correspond pas",
+        style: TextStyle(
+            color: Colors.red),),
+      actions: [
+        FlatButton(onPressed: () =>  Navigator.pop(context, 'Cancel'),
+
+            child: Text("Essae encore",
+              style: TextStyle(
+                  fontSize: 20),))
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30)
+      ),
+    );
+  }
+
+
+
+
+
   void goToNextPage() {
     Navigator.push(context, MaterialPageRoute(builder:
         (context) {
-      return LoadingPage();
+      return TuteurProfil();
     }));
+  }
+
+  Widget confirmPersonnalInformations (){
+    //Demande à l'utilisateur de confirmer ses info avec une pop up
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      title: Text('Confirmer ?',
+      style: TextStyle(fontSize: 20,
+      fontFamily: "Montserrat")
+        ,),
+      content: Text('Ces informations seront \nvisible par tout le monde.\n \n Voulez vous continuer?',
+      style: TextStyle(fontSize: 20,fontFamily: 'Montserrat'),
+      ),
+
+      actions: [
+        TextButton(onPressed: ()=> Navigator.pop(context),
+            child: Text('Modifier',style: TextStyle(fontSize: 18),)),
+        SizedBox(width: 30,),
+        TextButton(onPressed: ()=> goToNextPage(),
+            child: Text('Continuer',style: TextStyle(fontSize: 18))),
+        SizedBox(width: 10,),
+
+      ],
+    );
   }
 
   @override
@@ -124,41 +226,7 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Name',
-              style: kLabelStyle,
-            ),
-            SizedBox(height: 10.0),
-            Container(
-              alignment: Alignment.centerLeft,
-              decoration: kBoxDecorationStyle,
-              height: 60.0,
-              child: TextFormField(
-                controller: username,
-                //change l'etat du champ nom
-                onChanged: (value) => setState(() => name = value),
-                validator: (value) =>value!.isEmpty ?
-                'Please enter your name' : null,
-                keyboardType: TextInputType.emailAddress,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Montserrat',
-                ),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14.0),
-                  prefixIcon: Icon(
-                    Icons.person,
-                    color: Colors.white,
-                  ),
-                  hintText: 'Enter your name',
-                  hintStyle: kHintTextStyle,
-                ),
-              ),
-            ),
-            SizedBox(height: 10,),
-            //il faut changer de controller le onchange et le validator
-            Text(
-              'Family Name',
+              'Nom complet',
               style: kLabelStyle,
             ),
             SizedBox(height: 10.0),
@@ -171,7 +239,7 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
                 //change l'etat du champ nom
                 onChanged: (value) => setState(() => fname = value),
                 validator: (value) =>value!.isEmpty ?
-                'Please enter your family name' : null,
+                'Entrer votre nom' : null,
                 keyboardType: TextInputType.emailAddress,
                 style: TextStyle(
                   color: Colors.white,
@@ -184,15 +252,16 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
                     Icons.person,
                     color: Colors.white,
                   ),
-                  hintText: 'Enter your family name',
+                  hintText: 'Entrer votre nom',
                   hintStyle: kHintTextStyle,
                 ),
               ),
             ),
+
             SizedBox(height: 10,),
             //il faut changer de controller le onchange et le validator
             Text(
-              'Age',
+              'Âge',
               style: kLabelStyle,
             ),
             SizedBox(height: 10.0),
@@ -205,7 +274,7 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
                 //change l'etat du champ nom
                 onChanged: (value) => setState(() => age = value),
                 validator: (value) =>value!.isEmpty ?
-                'Please enter your âge' : null,
+                'Entrer votre âge' : null,
                 keyboardType: TextInputType.number,
                 style: TextStyle(
                   color: Colors.white,
@@ -218,48 +287,16 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
                     Icons.person,
                     color: Colors.white,
                   ),
-                  hintText: 'Enter your family âge',
+                  hintText: 'Entrer votre âge',
                   hintStyle: kHintTextStyle,
                 ),
               ),
             ),
-            SizedBox(height: 10,),
-            Text(
-              'Email',
-              style: kLabelStyle,
-            ),
-            SizedBox(height: 10.0),
-            Container(
-              alignment: Alignment.centerLeft,
-              decoration: kBoxDecorationStyle,
-              height: 60.0,
-              child: TextFormField(
-                controller: emailController,
-                //change l'etat du champ email
-                onChanged: (value) => setState(() => email = value),
-                validator: (value) =>value!.isEmpty || !emailValidator.hasMatch(value) ?
-                'Please enter a valid E-mail' : null,
-                keyboardType: TextInputType.emailAddress,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Montserrat',
-                ),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(top: 14.0),
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Colors.white,
-                  ),
-                  hintText: 'Enter your Email',
-                  hintStyle: kHintTextStyle,
-                ),
-              ),
-            ),
+
             SizedBox(height: 10,),
             //il faut changer de controller le onchange et le validator
             Text(
-              'Phone number',
+              'Téléphone',
               style: kLabelStyle,
             ),
             SizedBox(height: 10.0),
@@ -271,8 +308,8 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
                 controller: numberController,
                 //change l'etat du champ nom
                 onChanged: (value) => setState(() => number = value),
-                validator: (value) =>value!.isEmpty ?
-                'Please enter your Phone number' : null,
+                validator: (value) =>value!.length<9 ?
+                'Entrer un numéro valide' : null,
                 keyboardType: TextInputType.number,
                 style: TextStyle(
                   color: Colors.white,
@@ -285,11 +322,46 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
                     Icons.phone_android,
                     color: Colors.white,
                   ),
-                  hintText: 'Enter your phone number',
+                  hintText: 'Entrer votre numéro de téléphone ',
                   hintStyle: kHintTextStyle,
                 ),
               ),
             ),
+            SizedBox(height: 10,),
+            //il faut changer de controller le onchange et le validator
+            Text(
+              'Email',
+              style: kLabelStyle,
+            ),
+            SizedBox(height: 10.0),
+            Container(
+              alignment: Alignment.centerLeft,
+              decoration: kBoxDecorationStyle,
+              height: 60.0,
+              child: TextFormField(
+                controller: emailController,
+                //change l'etat du champ nom
+                onChanged: (value) => setState(() => email = value),
+                validator: (value) =>value!.isEmpty || !emailValidator.hasMatch(value) ?
+                'Entrer le même Email ' : null,
+                keyboardType: TextInputType.emailAddress,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Montserrat',
+                ),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.only(top: 14.0),
+                  prefixIcon: Icon(
+                    Icons.email,
+                    color: Colors.white,
+                  ),
+                  hintText: 'Entrer votre Email',
+                  hintStyle: kHintTextStyle,
+                ),
+              ),
+            ),
+
 
             SizedBox(height: 10,),
             Container(
@@ -299,7 +371,7 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
                 elevation: 5.0,
                 onPressed: !emailValidator.hasMatch(email)? null :() {
                   if(_formkey.currentState!.validate()){
-                  goToNextPage();
+                  personnalinfos();
                   }
 
                 },
@@ -309,7 +381,7 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
                 ),
                 color: Colors.white,
                 child: Text(
-                  'Continuer',
+                  'Valider',
                   style: TextStyle(
                     color: Color(0xFF527DAA),
                     letterSpacing: 1.5,
@@ -322,13 +394,39 @@ class _TuteurPersonalInformationsState extends State<TuteurPersonalInformations>
             ),
             SizedBox(height: 10,),
            Center(
-             child:  Text('Fill this form',
+             child:  Text('Remplir le formulaire',
                style: TextStyle(fontSize: 20,color: Colors.white,
                fontFamily: 'Montserrat'),),
            )
           ],
         ),
       ),
+    );
+  }
+}
+
+
+
+
+
+
+
+class TuteurProfil extends StatefulWidget {
+  const TuteurProfil({Key? key}) : super(key: key);
+
+  @override
+  _TuteurProfilState createState() => _TuteurProfilState();
+}
+
+class _TuteurProfilState extends State<TuteurProfil> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('test profil'),
+        backgroundColor: Colors.teal,
+      ),
+      body: Container(),
     );
   }
 }

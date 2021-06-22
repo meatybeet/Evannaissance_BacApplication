@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:e_bac/Loading/Loading.dart';
 import 'package:e_bac/TuteurPagesSection/FirtsEditingProfile/Bienvenue.dart';
 import 'package:e_bac/TuteurPagesSection/FirtsEditingProfile/EditeProfileImage.dart';
 import 'package:e_bac/utilities/constants.dart';
@@ -60,7 +61,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Sign Up',
+                        "S'ENREGISTRER",
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Montserrat',
@@ -102,7 +103,7 @@ class _FormInscriptionState extends State<FormInscription> {
   final RegExp emailValidator = RegExp(r"[a-z0-9\._-]+@[a-z0-9\._-]+\.[a-z]+");
 
   //Controller pour le formulaire
-  TextEditingController username = new TextEditingController();
+  TextEditingController loginController = new TextEditingController();
   TextEditingController emailController = new TextEditingController();
   TextEditingController pwdController = new TextEditingController();
   TextEditingController ConfirmpwdController = new TextEditingController();
@@ -111,7 +112,7 @@ class _FormInscriptionState extends State<FormInscription> {
     var url = Uri.parse("http://192.168.1.16/workstation/flutter%20app%20auth/register.php");
     var response = await http.post(url,
         body: {
-          "username" : username.text,
+          "login" : loginController.text,
           "email" : emailController.text,
           "password" : pwdController.text,
 
@@ -119,28 +120,60 @@ class _FormInscriptionState extends State<FormInscription> {
     );
     var data = jsonDecode(response.body);
     if(data == "Error"){
-      Fluttertoast.showToast(
-          msg: "cet utilisateur existe",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.red,
-          textColor: Colors.red,
-          fontSize: 20.0
-      );
+
+      //permet d'afficher une pop up
+      showDialog(context: context,
+        builder: (_) => ShowErrorDialog(),
+        barrierDismissible: false,);
     }else{
-      Fluttertoast.showToast(
-          msg: "enregistrement résussi",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.green,
-          textColor: Colors.green,
-          fontSize: 20
-      );
-      goToNextPage();
+
+      //permet d'afficher une pop up
+      showDialog(context: context,
+        builder: (_) => ShowSuccesDialog(),
+        barrierDismissible: false,);
+
+
     }
   }
+
+  Widget ShowSuccesDialog(){
+    return  AlertDialog(
+      title: Text('Réussi',
+        style: TextStyle(
+            color: Colors.green),),
+      content: Image.asset("assets/success.png"),
+      actions: [
+        FlatButton(onPressed: () => goToNextPage(),
+            child: Text("Continuer",
+              style: TextStyle(
+                  fontSize: 20),))
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30)
+      ),
+    );
+  }
+
+  Widget ShowErrorDialog(){
+    return  AlertDialog(
+      title: Text('Erreur',
+        style: TextStyle(
+            color: Colors.red),),
+      content: Image.asset("assets/error.png"),
+      actions: [
+        FlatButton(onPressed: () =>  Navigator.pop(context, 'Cancel'),
+
+            child: Text("Essaie encore",
+              style: TextStyle(
+                  fontSize: 20),))
+      ],
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30)
+      ),
+    );
+  }
+
+
 
   void goToNextPage() {
     Navigator.push(context, MaterialPageRoute(builder:
@@ -160,7 +193,7 @@ class _FormInscriptionState extends State<FormInscription> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            'Complet name',
+            'Login',
             style: kLabelStyle,
           ),
           SizedBox(height: 10.0),
@@ -169,11 +202,11 @@ class _FormInscriptionState extends State<FormInscription> {
             decoration: kBoxDecorationStyle,
             height: 60.0,
             child: TextFormField(
-              controller: username,
+              controller: loginController,
               //change l'etat du champ nom
               onChanged: (value) => setState(() => name = value),
               validator: (value) =>value!.isEmpty ?
-              'Please enter your name' : null,
+              'Entrer votre Email' : null,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(
                 color: Colors.white,
@@ -186,7 +219,7 @@ class _FormInscriptionState extends State<FormInscription> {
                   Icons.person,
                   color: Colors.white,
                 ),
-                hintText: 'Enter your full name',
+                hintText: 'Ex: nom1234',
                 hintStyle: kHintTextStyle,
               ),
             ),
@@ -206,7 +239,7 @@ class _FormInscriptionState extends State<FormInscription> {
               //change l'etat du champ email
               onChanged: (value) => setState(() => email = value),
               validator: (value) =>value!.isEmpty || !emailValidator.hasMatch(value) ?
-              'Please enter a valid E-mail' : null,
+              'Entrer un Email valide' : null,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(
                 color: Colors.white,
@@ -219,14 +252,14 @@ class _FormInscriptionState extends State<FormInscription> {
                   Icons.email,
                   color: Colors.white,
                 ),
-                hintText: 'Enter your Email',
+                hintText: 'Enter votre Email',
                 hintStyle: kHintTextStyle,
               ),
             ),
           ),
           SizedBox(height: 10,),
           Text(
-            'Password',
+            'Mot de passe',
             style: kLabelStyle,
           ),
           SizedBox(height: 10.0),
@@ -262,14 +295,14 @@ class _FormInscriptionState extends State<FormInscription> {
                       Icons.visibility : Icons.visibility_off,
                   color: Colors.white,),
                 ),
-                hintText: 'Enter your Password',
+                hintText: 'Enter votre mot de passe',
                 hintStyle: kHintTextStyle,
               ),
             ),
           ),
           SizedBox(height: 10,),
           Text(
-            'Confirm Password',
+            'Confirmer Mot de passe',
             style: kLabelStyle,
           ),
           SizedBox(height: 10.0),
@@ -304,7 +337,7 @@ class _FormInscriptionState extends State<FormInscription> {
                       Icons.visibility : Icons.visibility_off,
                     color: Colors.white,),
                 ),
-                hintText: 'Confirm your Password',
+                hintText: 'Confirmer votre mot de passe',
                 hintStyle: kHintTextStyle,
               ),
             ),
@@ -329,7 +362,7 @@ class _FormInscriptionState extends State<FormInscription> {
               ),
               color: Colors.white,
               child: Text(
-                'Sign Up',
+                'Valider',
                 style: TextStyle(
                   color: Color(0xFF527DAA),
                   letterSpacing: 1.5,
@@ -343,7 +376,7 @@ class _FormInscriptionState extends State<FormInscription> {
           SizedBox(height: 10,),
           Center(
             child: GestureDetector(
-              onTap: () => Navigator.push(
+              onTap: () =>Navigator.push(
                   context, MaterialPageRoute(
                   builder: (context){
                     return LoginScreen();})),

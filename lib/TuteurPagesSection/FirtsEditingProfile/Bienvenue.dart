@@ -129,14 +129,14 @@ class _BienvenueState extends State<Bienvenue> {
           children: [
              DefaultTextStyle(
                 style: const TextStyle(
-                  fontSize: 40.0,
+                  fontSize: 30.0,
                   fontFamily: 'Canterbury',
                 ),
                 child: AnimatedTextKit(
                   repeatForever: true,
                   animatedTexts: [
 
-                    ScaleAnimatedText('Tap to continue',),
+                    ScaleAnimatedText('Tap pour continue',),
 
                   ],
                   onTap: () {

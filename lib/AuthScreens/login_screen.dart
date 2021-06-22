@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
+        value: SystemUiOverlayStyle.dark,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: Stack(
@@ -61,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Sign In',
+                        'LOGIN',
                         style: TextStyle(
                           color: Colors.white,
                           fontFamily: 'Montserrat',
@@ -110,7 +110,7 @@ class _FormConnexionState extends State<FormConnexion> {
   void goToNextPage() {
     //permet de naviguer d'une page à une autre avec une animation
     Navigator.push(context, PageRouteBuilder(
-    transitionDuration: Duration(seconds: 1),
+    transitionDuration: Duration(milliseconds: 500),
     transitionsBuilder: (context, animation, animationTime, child) {
       animation= CurvedAnimation(parent: animation,
       curve: Curves.elasticOut);
@@ -128,13 +128,13 @@ class _FormConnexionState extends State<FormConnexion> {
 
   Widget ShowSuccesDialog(){
     return  AlertDialog(
-      title: Text('Login succes',
+      title: Text('Réussi',
       style: TextStyle(
           color: Colors.green),),
       content: Image.asset("assets/success.png"),
       actions: [
         FlatButton(onPressed: () => goToNextPage(),
-            child: Text("Continue",
+            child: Text("Continuer",
               style: TextStyle(
                   fontSize: 20),))
       ],
@@ -146,14 +146,14 @@ class _FormConnexionState extends State<FormConnexion> {
 
   Widget ShowErrorDialog(){
     return  AlertDialog(
-      title: Text('Login Error',
+      title: Text('Erreur',
         style: TextStyle(
             color: Colors.red),),
       content: Image.asset("assets/error.png"),
       actions: [
         FlatButton(onPressed: () =>  Navigator.pop(context, 'Cancel'),
 
-            child: Text("Try again",
+            child: Text("Essaie encore",
               style: TextStyle(
                   fontSize: 20),))
       ],
@@ -188,7 +188,7 @@ class _FormConnexionState extends State<FormConnexion> {
               borderRadius: BorderRadius.circular(30),
             ),
             color: Colors.white,
-            child: Text('Who are you ?',
+            child: Text('Qui êtes-vous ?',
               style: TextStyle(fontFamily: 'Montserrat',
                   fontSize: 20,
                   color: Colors.indigo),
@@ -207,7 +207,7 @@ class _FormConnexionState extends State<FormConnexion> {
         onPressed: () => print('Forgot Password Button Pressed'),
         padding: EdgeInsets.only(right: 0.0),
         child: Text(
-          'Forgot Password?',
+          'Mot de passe oublier ?',
           style: kLabelStyle,
         ),
       ),
@@ -234,7 +234,7 @@ class _FormConnexionState extends State<FormConnexion> {
             ),
           ),
           Text(
-            'Remember me',
+            'Rester connecter',
             style: kLabelStyle,
           ),
         ],
@@ -308,7 +308,7 @@ class _FormConnexionState extends State<FormConnexion> {
               //change l'etat du champ email
               onChanged: (value) => setState(() => email = value),
               validator: (value) =>value!.isEmpty || !emailValidator.hasMatch(value) ?
-              'Please enter a valid E-mail' : null,
+              'Enter un Email valide' : null,
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(
                 color: Colors.white,
@@ -333,14 +333,14 @@ class _FormConnexionState extends State<FormConnexion> {
                     Icons.close,
                   color: Colors.white,),
                 ),
-                hintText: 'Enter your Email',
+                hintText: 'Enter votre Email',
                 hintStyle: kHintTextStyle,
               ),
             ),
           ),
           SizedBox(height: 10,),
           Text(
-            'Password',
+            'Mot de passe',
             style: kLabelStyle,
           ),
           SizedBox(height: 10.0),
@@ -375,7 +375,7 @@ class _FormConnexionState extends State<FormConnexion> {
                       Icons.visibility : Icons.visibility_off,
                   color: Colors.white,),
                 ),
-                hintText: 'Enter your Password',
+                hintText: 'Enter votre Mot de passe',
                 hintStyle: kHintTextStyle,
               ),
             ),
@@ -407,7 +407,7 @@ class _FormConnexionState extends State<FormConnexion> {
               ),
               color: Colors.white,
               child: Text(
-                'LOGIN',
+                'Valider',
                 style: TextStyle(
                   color: Color(0xFF527DAA),
                   letterSpacing: 1.5,
@@ -432,7 +432,7 @@ class _FormConnexionState extends State<FormConnexion> {
                    text: TextSpan(
                      children: [
                        TextSpan(
-                         text: 'Don\'t have an Account? ',
+                         text:  "Vous n'avez pas de compte ?",
                          style: TextStyle(
                            color: Colors.white,
                            fontSize: 18.0,
@@ -440,7 +440,7 @@ class _FormConnexionState extends State<FormConnexion> {
                          ),
                        ),
                        TextSpan(
-                         text: 'Sign Up',
+                         text: 'Créer ici',
                          style: TextStyle(
                            color: Colors.white,
                            fontSize: 18.0,
