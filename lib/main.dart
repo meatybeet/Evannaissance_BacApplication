@@ -10,7 +10,7 @@ import 'StudentsPageSection/MatieresTypeBac/PageMatieresS.dart';
 import 'onboarding_sceens/onboarding_screen.dart';
 
 
-
+//le main
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -28,8 +28,7 @@ class MyApp extends StatelessWidget {
         nextScreen: OnboardingScreen(),
         splashTransition: SplashTransition.sizeTransition,),
 
-            );
-
+    );
   }
 }
 
