@@ -10,6 +10,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'Accueil.dart';
+import 'PagesNavBottomBar/FoundTuteurs.dart';
+import 'PagesNavBottomBar/pageCours.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -24,9 +26,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final List<Widget> _Pages = <Widget>[
 
-    ProfileEditor(),//j'ai mis ca juste pour le test
+    PageCours(),
     Accueil(),
-    BienvenuePage(),//j'ai mis ca juste pour le test
+    FoundTuteur(),
 
   ];
 

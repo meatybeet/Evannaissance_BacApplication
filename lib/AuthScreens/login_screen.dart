@@ -250,7 +250,7 @@ class _FormConnexionState extends State<FormConnexion> {
 //methode permettant de recuperer les valeurs des champs a l'aide des controller
   // de les envoyer vers le serveur à traver l'url et de decoder le json
   Future<void> login()async {
-    var url = Uri.parse("http://192.168.1.16/workstation/flutter%20app%20auth/login.php");
+    var url = Uri.parse("https://bacplusplus.000webhostapp.com/login.php");
     var response = await http.post(url,
       body: {
         "email" : emailController.text,

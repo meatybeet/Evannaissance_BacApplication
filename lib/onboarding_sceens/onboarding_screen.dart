@@ -5,7 +5,8 @@ import 'package:flutter/services.dart';
 
 import '../AuthScreens/SignUp_Screen.dart';
 import '../AuthScreens/TypeUsers.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class OnboardingScreen extends StatefulWidget {
   @override
@@ -40,21 +41,23 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   void goToNextPage() {
     //permet de naviguer d'une page à une autre avec une animation
-    Navigator.push(context, PageRouteBuilder(
-        transitionDuration: Duration(seconds: 1),
-        transitionsBuilder: (context, animation, animationTime, child) {
-          animation= CurvedAnimation(parent: animation,
-              curve: Curves.elasticOut);
-          return ScaleTransition(scale: animation,
-            alignment: Alignment.center,
-            child: child,
-          );
-        },
-        pageBuilder:
-            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-          return ChoiceUserType();
-        }
-    ));
+    Navigator.push(
+        context,
+        PageRouteBuilder(
+            transitionDuration: Duration(seconds: 1),
+            transitionsBuilder: (context, animation, animationTime, child) {
+              animation =
+                  CurvedAnimation(parent: animation, curve: Curves.elasticOut);
+              return ScaleTransition(
+                scale: animation,
+                alignment: Alignment.center,
+                child: child,
+              );
+            },
+            pageBuilder: (BuildContext context, Animation<double> animation,
+                Animation<double> secondaryAnimation) {
+              return ChoiceUserType();
+            }));
   }
 
   @override
@@ -84,7 +87,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: FlatButton(
-                    onPressed: () => goToNextPage() ,
+                    onPressed: () => goToNextPage(),
                     child: Text(
                       'Passer',
                       style: TextStyle(
@@ -105,14 +108,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       });
                     },
                     children: <Widget>[
-
                       Padding(
-                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
+                        padding: EdgeInsets.only(top: 70, left: 20, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child:   Card(
+                              child: Card(
                                 clipBehavior: Clip.antiAlias,
                                 color: Colors.green,
                                 elevation: 10,
@@ -124,15 +126,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   children: [
                                     Stack(
                                       alignment: Alignment.center,
-                                      children:<Widget>[
-                                        Ink.image(image:
-                                        AssetImage("assets/StudentsImages/etudiants11.jpg"),
+                                      children: <Widget>[
+                                        Ink.image(
+                                          image: AssetImage(
+                                              "assets/StudentsImages/etudiants11.jpg"),
                                           fit: BoxFit.cover,
                                           height: 250,
                                           child: InkWell(
                                             onTap: () {},
-                                            splashColor: Colors.blue.withAlpha(30),
-                                          ),),
+                                            splashColor:
+                                            Colors.blue.withAlpha(30),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -161,14 +166,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
-
                       Padding(
-                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
+                        padding: EdgeInsets.only(top: 70, left: 20, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child:   Card(
+                              child: Card(
                                 clipBehavior: Clip.antiAlias,
                                 color: Colors.green,
                                 elevation: 10,
@@ -180,15 +184,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   children: [
                                     Stack(
                                       alignment: Alignment.center,
-                                      children:<Widget>[
-                                        Ink.image(image:
-                                        AssetImage("assets/StudentsImages/etudiants4.jpg"),
+                                      children: <Widget>[
+                                        Ink.image(
+                                          image: AssetImage(
+                                              "assets/StudentsImages/etudiants4.jpg"),
                                           fit: BoxFit.cover,
                                           height: 250,
                                           child: InkWell(
                                             onTap: () {},
-                                            splashColor: Colors.blue.withAlpha(30),
-                                          ),),
+                                            splashColor:
+                                            Colors.blue.withAlpha(30),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -216,14 +223,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
-
                       Padding(
-                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
+                        padding: EdgeInsets.only(top: 70, left: 20, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child:   Card(
+                              child: Card(
                                 clipBehavior: Clip.antiAlias,
                                 color: Colors.green,
                                 elevation: 10,
@@ -235,15 +241,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   children: [
                                     Stack(
                                       alignment: Alignment.center,
-                                      children:<Widget>[
-                                        Ink.image(image:
-                                        AssetImage("assets/StudentsImages/etudiants3.jpg"),
+                                      children: <Widget>[
+                                        Ink.image(
+                                          image: AssetImage(
+                                              "assets/StudentsImages/etudiants3.jpg"),
                                           fit: BoxFit.cover,
                                           height: 250,
                                           child: InkWell(
                                             onTap: () {},
-                                            splashColor: Colors.blue.withAlpha(30),
-                                          ),),
+                                            splashColor:
+                                            Colors.blue.withAlpha(30),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -271,14 +280,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
-
                       Padding(
-                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
+                        padding: EdgeInsets.only(top: 70, left: 20, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child:   Card(
+                              child: Card(
                                 clipBehavior: Clip.antiAlias,
                                 color: Colors.green,
                                 elevation: 10,
@@ -290,15 +298,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   children: [
                                     Stack(
                                       alignment: Alignment.center,
-                                      children:<Widget>[
-                                        Ink.image(image:
-                                        AssetImage("assets/StudentsImages/etudiants12.jpg"),
+                                      children: <Widget>[
+                                        Ink.image(
+                                          image: AssetImage(
+                                              "assets/StudentsImages/etudiants12.jpg"),
                                           fit: BoxFit.cover,
                                           height: 250,
                                           child: InkWell(
                                             onTap: () {},
-                                            splashColor: Colors.blue.withAlpha(30),
-                                          ),),
+                                            splashColor:
+                                            Colors.blue.withAlpha(30),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -327,14 +338,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
-
                       Padding(
-                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
+                        padding: EdgeInsets.only(top: 70, left: 20, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child:   Card(
+                              child: Card(
                                 clipBehavior: Clip.antiAlias,
                                 color: Colors.green,
                                 elevation: 10,
@@ -346,15 +356,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   children: [
                                     Stack(
                                       alignment: Alignment.center,
-                                      children:<Widget>[
-                                        Ink.image(image:
-                                        AssetImage("assets/StudentsImages/etudiants13.jpg"),
+                                      children: <Widget>[
+                                        Ink.image(
+                                          image: AssetImage(
+                                              "assets/StudentsImages/etudiants13.jpg"),
                                           fit: BoxFit.cover,
                                           height: 250,
                                           child: InkWell(
                                             onTap: () {},
-                                            splashColor: Colors.blue.withAlpha(30),
-                                          ),),
+                                            splashColor:
+                                            Colors.blue.withAlpha(30),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -382,14 +395,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ],
                         ),
                       ),
-
                       Padding(
-                        padding: EdgeInsets.only(top: 70,left: 20,right: 20),
+                        padding: EdgeInsets.only(top: 70, left: 20, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Center(
-                              child:   Card(
+                              child: Card(
                                 clipBehavior: Clip.antiAlias,
                                 color: Colors.green,
                                 elevation: 10,
@@ -401,15 +413,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   children: [
                                     Stack(
                                       alignment: Alignment.center,
-                                      children:<Widget>[
-                                        Ink.image(image:
-                                        AssetImage("assets/StudentsImages/etudiants1.jpg"),
+                                      children: <Widget>[
+                                        Ink.image(
+                                          image: AssetImage(
+                                              "assets/StudentsImages/etudiants1.jpg"),
                                           fit: BoxFit.cover,
                                           height: 250,
                                           child: InkWell(
                                             onTap: () {},
-                                            splashColor: Colors.blue.withAlpha(30),
-                                          ),),
+                                            splashColor:
+                                            Colors.blue.withAlpha(30),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -440,44 +455,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     ],
                   ),
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: _buildPageIndicator(),
                 ),
                 _currentPage != _numPages - 1
                     ? Expanded(
-                        child: Align(
-                          alignment: FractionalOffset.bottomRight,
-                          child: FlatButton(
-                            onPressed: () {
-                              _pageController.nextPage(
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                              );
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(
-                                  'Next',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22.0,
-                                  ),
-                                ),
-                                SizedBox(width: 10.0),
-                                Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.white,
-                                  size: 30.0,
-                                ),
-                              ],
+                  child: Align(
+                    alignment: FractionalOffset.bottomRight,
+                    child: FlatButton(
+                      onPressed: () {
+                        _pageController.nextPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                            'Next',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22.0,
                             ),
                           ),
-                        ),
-                      )
+                          SizedBox(width: 10.0),
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
                     : Text(''),
               ],
             ),
@@ -486,14 +500,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       ),
       bottomSheet: _currentPage == _numPages - 1
           ? Container(
-
         padding: EdgeInsets.symmetric(vertical: 25.0),
         width: double.infinity,
         child: RaisedButton(
           elevation: 5.0,
           onPressed: () => goToNextPage(),
-
-            padding: EdgeInsets.all(15.0),
+          padding: EdgeInsets.all(15.0),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
           ),

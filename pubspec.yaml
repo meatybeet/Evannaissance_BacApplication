@@ -26,6 +26,10 @@ dependencies:
     #pour le splashscreen
   flutter_native_splash: ^1.2.0
 
+
+
+
+
   eva_icons_flutter: ^3.0.0
 
   cupertino_icons: ^1.0.2
@@ -43,6 +47,13 @@ dependencies:
 
   animated_splash_screen: ^1.1.0
   image_picker: ^0.8.0+3
+
+  shared_preferences: ^2.0.6
+
+
+  syncfusion_flutter_pdfviewer: ^19.1.69-beta
+  path_provider:
+
 
 
 

@@ -109,7 +109,7 @@ class _FormInscriptionState extends State<FormInscription> {
   TextEditingController ConfirmpwdController = new TextEditingController();
 
   Future<void> register()async {
-    var url = Uri.parse("http://192.168.1.16/workstation/flutter%20app%20auth/register.php");
+    var url = Uri.parse("https://bacplusplus.000webhostapp.com/register.php");
     var response = await http.post(url,
         body: {
           "login" : loginController.text,

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:e_bac/StudentsPageSection/MatieresTypeBac/results_page.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,276 +8,134 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import '../BottomNaBar.dart';
 import '../ChoiceTypeBac.dart';
+import 'package:http/http.dart' as http;
 
+var je_suis_la_variable_globale_ultime = "Ha! Ha! Ha😎";
 
 class PageMatiereS extends StatefulWidget {
-  const PageMatiereS ({Key? key}) : super(key: key);
-
+  PageMatiereS(@required this.bac);
+  String bac;
   @override
   _PageMatiereSState createState() => _PageMatiereSState();
 }
 
 class _PageMatiereSState extends State<PageMatiereS> {
-
   void goToBottomNavBar() {
     //permet de naviguer d'une page à une autre avec une animation
-    Navigator.push(context, PageRouteBuilder(
-        transitionDuration: Duration(milliseconds: 500),
-        transitionsBuilder: (context, animation, animationTime, child) {
-          animation= CurvedAnimation(parent: animation,
-              curve: Curves.elasticOut);
-          return ScaleTransition(scale: animation,
-            alignment: Alignment.center,
-            child: child,
-          );
-        },
-        pageBuilder:
-            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-          return BottomNavBar();
-        }
-    ));
+    Navigator.pop(context);
+
   }
 
   @override
   Widget build(BuildContext context) {
+    je_suis_la_variable_globale_ultime = widget.bac;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title:  Text("Matières Bac S",
-          style: TextStyle(fontSize: 20,
-          color: Colors.black),),
-      elevation: 0,
-      backgroundColor: Colors.white,
-      leading: Builder(
-        builder:(BuildContext context){
-          return IconButton(onPressed: ()=> goToBottomNavBar(),
-              icon:  Icon(EvaIcons.arrowBack,
-                size: 35,
-                color: Colors.lightBlue,)
-          );},
+        title: Text(
+          "Matières Bac " + widget.bac,
+          style: TextStyle(fontSize: 20, color: Colors.white),
+        ),
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [Colors.lightBlueAccent, Colors.blue],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topRight)),
+        ),
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+                onPressed: () => goToBottomNavBar(),
+                icon: Icon(
+                  EvaIcons.arrowBack,
+                  size: 35,
+                  color: Colors.white,
+                ));
+          },
+        ),
       ),
-    ),
-      body: ListViewWidget(),
-
+      body: Ldl(), //ListViewWidget(),
     );
   }
 }
 
-
-
-
-class ListViewWidget extends StatelessWidget {
+class Ldl extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        ListeTileWidget(),
-      ],
-
-    );
-  }
+  _LdlState createState() => _LdlState();
 }
 
-class ListeTileWidget extends StatelessWidget {
+class _LdlState extends State<Ldl> {
+  List list = [];
+  bool vf = true;
+  var emptyMap = new Map();
+
+  Future getData() async {
+    final http.Response response =
+        await http.get(Uri.https('bacplusplus.000webhostapp.com', 'scx.php'));
+    if (response.statusCode == 200) {
+      setState(() {
+        emptyMap = jsonDecode(response.body);
+        vf = false;
+      });
+    }
+    print(emptyMap[je_suis_la_variable_globale_ultime][1]);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void porte_un_(String ou_silip) {
+    print(ou_silip);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (BuildContext context) => ParAnnee(ou_silip),
+      ),
+    );
+  }
+
+  ListTile matiere(String nom, String type, Function vas_la_bas) {
+    return ListTile(
+      leading: Icon(Icons.book_outlined,color: Colors.blue,size: 40,),
+      title: Text(
+        nom,
+        style: TextStyle(
+          fontSize: 20,
+        ),
+      ),
+      subtitle: Text(
+        type,
+        style: TextStyle(color: Colors.blue),
+      ),
+      trailing: Icon(Icons.keyboard_arrow_right,color: Colors.blue,size: 30,),
+      onTap: () {
+        vas_la_bas(nom);
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(height: 30,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("FRANCAIS",style:
-          TextStyle(fontSize: 20,),),
-            subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("PHILOSOPHIE",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("HISTOIRE GEOGRAPHIE",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("ANGLAIS",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("MATHEMATIQUES",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Matière dominante en s1,s2,s3,s4,s5",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("SCIENCES PHYSIQUES",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Matière dominante en s1,s2,s3,s4,s5",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("SCIENCES DE LA VIE ET DE TERRE",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Matière dominante en s2,s4,s5",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("EDUCATION PHYSIQUE",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("CONSTRUCTION MECANIQUE",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Matière dominante en s3",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("ANA.DE FABRICAT TECHNO.AUTOMAT",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("EPREUVE PRATIQUE ATELIER",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("ECOLOGIE ENVIRONNEMENT",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("ZOOTECHNIQUE",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("PHYTOTECHNIQUE",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("TECH. TRANSF.CONSERV",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Matière dominante en s5",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 25,
-            backgroundImage: AssetImage(""),
-          ),
-          title: Text("BIOCHIMIE",style:
-          TextStyle(fontSize: 20,),),
-          subtitle: Text("Non dominante",style: TextStyle(color: Colors.blue),),
-          trailing: Icon(Icons.keyboard_arrow_right),
-          onTap: () => print("yooo"),
-        ),
-        SizedBox(height: 10,),
-      ],
-    );
+    return vf
+        ? Center(child: CircularProgressIndicator())
+        : ListView.builder(
+            itemCount: emptyMap[je_suis_la_variable_globale_ultime].length,
+            itemBuilder: (context, index) {
+              var al = emptyMap[je_suis_la_variable_globale_ultime][index]
+                          ['description']
+                      .isEmpty
+                  ? "Non dominate"
+                  : emptyMap[je_suis_la_variable_globale_ultime][index]
+                      ['description'];
+              return matiere(
+                  emptyMap[je_suis_la_variable_globale_ultime][index]['nom'],
+                  al,
+                  porte_un_);
+            });
   }
 }

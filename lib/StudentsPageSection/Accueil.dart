@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 
 import 'ChoiceTypeBac.dart';
+import 'PagesNavBottomBar/SettingsPage.dart';
 import 'ProfilPage.dart';
 
 
@@ -19,21 +20,7 @@ class Accueil extends StatefulWidget {
 class _AccueilState extends State<Accueil> {
   void goToChoiceUserType() {
     //permet de naviguer d'une page à une autre avec une animation
-    Navigator.push(context, PageRouteBuilder(
-        transitionDuration: Duration(milliseconds: 500),
-        transitionsBuilder: (context, animation, animationTime, child) {
-          animation= CurvedAnimation(parent: animation,
-              curve: Curves.elasticOut);
-          return ScaleTransition(scale: animation,
-            alignment: Alignment.center,
-            child: child,
-          );
-        },
-        pageBuilder:
-            (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
-          return ChoiceUserType();
-        }
-    ));
+    Navigator.pop(context);
   }
 
   @override
@@ -56,7 +43,10 @@ class _AccueilState extends State<Accueil> {
         ),
 
         actions: [
-          IconButton(onPressed: () {},
+          IconButton(onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (context){
+                return paramettre();
+              })),
               icon: Icon(EvaIcons.settings,
                 size: 35,
                 color: Colors.lightBlue,))
